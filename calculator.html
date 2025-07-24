@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scientific Calculator</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background-color: #2c2c2c;
+      padding: 20px;
+      border-radius: 15px;
+      width: 360px;
+    }
+
+    .display {
+      background-color: #000;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 24px;
+      text-align: right;
+      margin-bottom: 15px;
+      overflow-x: auto;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 16px;
+      background-color: #3b3b3b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    .equal {
+      background-color: #2e7d32;
+    }
+
+    .clear {
+      background-color: #c62828;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button onclick="clearDisplay()" class="clear">C</button>
+      <button onclick="backspace()">←</button>
+      <button onclick="append('**')">xʸ</button>
+      <button onclick="append('Math.sqrt(')">√</button>
+      <button onclick="append('/')">÷</button>
+
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('*')">×</button>
+      <button onclick="append('Math.log10(')">log</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('-')">−</button>
+      <button onclick="append('Math.log(')">ln</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('+')">+</button>
+      <button onclick="append('Math.pow(')">x²</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="append('Math.sin(toRad(')">sin</button>
+      <button onclick="append('Math.cos(toRad(')">cos</button>
+      <button onclick="append('Math.tan(toRad(')">tan</button>
+
+      <button onclick="append('factorial(')">n!</button>
+      <button onclick="append('nCr(')">nCr</button>
+      <button onclick="append(')')">)</button>
+      <button onclick="append('(')">(</button>
+      <button onclick="calculate()" class="equal">=</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById("display");
+
+    function append(val) {
+      if (display.innerText === "0") {
+        display.innerText = val;
+      } else {
+        display.innerText += val;
+      }
+    }
+
+    function clearDisplay() {
+      display.innerText = "0";
+    }
+
+    function backspace() {
+      display.innerText = display.innerText.slice(0, -1) || "0";
+    }
+
+    function factorial(n) {
+      n = parseInt(n);
+      if (n < 0) return NaN;
+      let f = 1;
+      for (let i = 1; i <= n; i++) f *= i;
+      return f;
+    }
+
+    function nCr(n, r) {
+      return factorial(n) / (factorial(r) * factorial(n - r));
+    }
+
+    function toRad(deg) {
+      return deg * (Math.PI / 180);
+    }
+
+    function calculate() {
+      try {
+        let result = eval(display.innerText);
+        display.innerText = result;
+      } catch {
+        display.innerText = "Error";
+      }
+    }
+  </script>
+
+</body>
+</html>
